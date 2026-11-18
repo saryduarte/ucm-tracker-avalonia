@@ -4,7 +4,7 @@
 - **Nombre del proyecto:** UCM Tracker (Gestor Cronológico Marvel)
 - **Estudiante:** Saray Natalia Duarte Florez
 - **Modalidad:** Individual
-- **Asignatura:** Programación en C# con .NET (Parcial Final — Semana 13)
+- **Asignatura:** Programación en C# con .NET (Parcial Final)
 - **Institución:** Corporación Universitaria Americana
 - **Descripción del software:** Desarrollé una aplicación de escritorio en C# (.NET 8) con interfaz gráfica en Avalonia UI 11 y almacenamiento persistente local mediante ADO.NET y SQLite. El sistema me permite administrar un catálogo personalizado de películas, series y especiales del Universo Cinematográfico de Marvel (UCM) organizados según su orden cronológico.
 - **Problema o necesidad que resuelve:** Como seguidora de las producciones de Marvel, necesitaba una herramienta local que me permitiera llevar un control ordenado y persistente de la línea temporal del UCM, registrando qué películas o series ya vi, cuáles tengo pendientes y qué calificación le asigno a cada una sin depender de listas externas.
