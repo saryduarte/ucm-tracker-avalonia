@@ -1,0 +1,137 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:models="using:UcmTrackerApp.Models"
+        x:Class="UcmTrackerApp.MainWindow"
+        Title="UCM Tracker — Gestor Cronológico Marvel"
+        Width="960" Height="620"
+        WindowStartupLocation="CenterScreen"
+        Background="#12141D"
+        RequestedThemeVariant="Dark">
+
+    <Window.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="#262A3A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CaretBrush" Value="#F5C518"/>
+            <Setter Property="BorderBrush" Value="#3E445B"/>
+        </Style>
+        <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="#2E3346"/>
+            <Setter Property="BorderBrush" Value="#F5C518"/>
+        </Style>
+        <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="#2E3346"/>
+            <Setter Property="BorderBrush" Value="#E62429"/>
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="Background" Value="#262A3A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#3E445B"/>
+        </Style>
+        <Style Selector="ComboBox:pointerover /template/ Border#Background">
+            <Setter Property="Background" Value="#2E3346"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+        <!-- Encabezado -->
+        <Border Grid.Row="0" Background="#E62429" CornerRadius="8" Padding="16" Margin="0,0,0,16">
+            <StackPanel>
+                <TextBlock Text="MARVEL STUDIOS — UCM CRONOLOGÍA TRACKER"
+                           FontSize="20" FontWeight="Bold" Foreground="White"/>
+                <TextBlock Text="Gestión de Películas y Series con C#, Avalonia UI y ADO.NET (SQLite)"
+                           FontSize="12" Foreground="#FFE5E5" Margin="0,4,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Cuerpo Principal: Formulario Izquierda / Lista Derecha -->
+        <Grid Grid.Row="1" ColumnDefinitions="320,*" ColumnSpacing="18">
+            <!-- Panel Formulario -->
+            <Border Grid.Column="0" Background="#1C1F2B" CornerRadius="8" Padding="16" BorderBrush="#2E3346" BorderThickness="1">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Datos de la Producción" FontSize="15" FontWeight="Bold" Foreground="#F5C518"/>
+
+                    <TextBlock Text="Título (ej. Iron Man, Vision Quest):" Foreground="#D0D4E4" FontSize="12"/>
+                    <TextBox x:Name="TxtTitulo" Watermark="Escribe el título..." Background="#262A3A" Foreground="White"/>
+
+                    <TextBlock Text="Tipo:" Foreground="#D0D4E4" FontSize="12"/>
+                    <ComboBox x:Name="CmbTipo" SelectedIndex="0" HorizontalAlignment="Stretch" Background="#262A3A" Foreground="White">
+                        <ComboBoxItem Content="Película"/>
+                        <ComboBoxItem Content="Serie"/>
+                        <ComboBoxItem Content="Especial"/>
+                    </ComboBox>
+
+                    <TextBlock Text="Orden Cronológico (N°):" Foreground="#D0D4E4" FontSize="12"/>
+                    <TextBox x:Name="TxtOrden" Watermark="Ej. 1, 2, 15..." Background="#262A3A" Foreground="White"/>
+
+                    <TextBlock Text="Estado:" Foreground="#D0D4E4" FontSize="12"/>
+                    <ComboBox x:Name="CmbEstado" SelectedIndex="0" HorizontalAlignment="Stretch" Background="#262A3A" Foreground="White">
+                        <ComboBoxItem Content="Vista"/>
+                        <ComboBoxItem Content="En progreso"/>
+                        <ComboBoxItem Content="Pendiente"/>
+                    </ComboBox>
+
+                    <TextBlock Text="Calificación (0.0 a 10.0):" Foreground="#D0D4E4" FontSize="12"/>
+                    <TextBox x:Name="TxtCalificacion" Watermark="Ej. 9.5" Background="#262A3A" Foreground="White"/>
+
+                    <!-- Botones CRUD -->
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="8" RowSpacing="8" Margin="0,10,0,0">
+                        <Button Grid.Row="0" Grid.Column="0" Content="Guardar" Click="BtnGuardar_Click"
+                                Background="#2EA043" Foreground="White" FontWeight="Bold" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+                        <Button Grid.Row="0" Grid.Column="1" Content="Actualizar" Click="BtnActualizar_Click"
+                                Background="#1F6FEB" Foreground="White" FontWeight="Bold" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+                        <Button Grid.Row="1" Grid.Column="0" Content="Eliminar" Click="BtnEliminar_Click"
+                                Background="#DA3633" Foreground="White" FontWeight="Bold" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+                        <Button Grid.Row="1" Grid.Column="1" Content="Limpiar" Click="BtnLimpiar_Click"
+                                Background="#484F58" Foreground="White" FontWeight="Bold" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Panel Listado -->
+            <Border Grid.Column="1" Background="#1C1F2B" CornerRadius="8" Padding="16" BorderBrush="#2E3346" BorderThickness="1">
+                <Grid RowDefinitions="Auto,Auto,*">
+                    <TextBlock Grid.Row="0" Text="Catálogo Registrado en SQLite (Orden Cronológico)"
+                               FontSize="15" FontWeight="Bold" Foreground="#F5C518" Margin="0,0,0,10"/>
+
+                    <!-- Encabezado de columnas -->
+                    <Border Grid.Row="1" Background="#262A3A" Padding="10,8" CornerRadius="4">
+                        <Grid ColumnDefinitions="45,*,85,75,95,65">
+                            <TextBlock Grid.Column="0" Text="ID" FontWeight="Bold" Foreground="#A0A8C0"/>
+                            <TextBlock Grid.Column="1" Text="Título" FontWeight="Bold" Foreground="#A0A8C0"/>
+                            <TextBlock Grid.Column="2" Text="Tipo" FontWeight="Bold" Foreground="#A0A8C0"/>
+                            <TextBlock Grid.Column="3" Text="Orden" FontWeight="Bold" Foreground="#A0A8C0"/>
+                            <TextBlock Grid.Column="4" Text="Estado" FontWeight="Bold" Foreground="#A0A8C0"/>
+                            <TextBlock Grid.Column="5" Text="Nota" FontWeight="Bold" Foreground="#A0A8C0"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Lista seleccionable -->
+                    <ListBox x:Name="ListaProducciones" Grid.Row="2" Background="Transparent"
+                             SelectionChanged="ListaProducciones_SelectionChanged" Margin="0,6,0,0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="models:ProduccionMarvel">
+                                <Border Padding="6,4" BorderBrush="#2A2F42" BorderThickness="0,0,0,1">
+                                    <Grid ColumnDefinitions="45,*,85,75,95,65">
+                                        <TextBlock Grid.Column="0" Text="{Binding Id}" Foreground="#8B949E"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding Titulo}" Foreground="White" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding Tipo}" Foreground="#C9D1D9"/>
+                                        <TextBlock Grid.Column="3" Text="{Binding OrdenCronologico, StringFormat='#{0}'}" Foreground="#F5C518"/>
+                                        <TextBlock Grid.Column="4" Text="{Binding Estado}" Foreground="#58A6FF"/>
+                                        <TextBlock Grid.Column="5" Text="{Binding Calificacion, StringFormat='★ {0:F1}'}" Foreground="#3FB950"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Barra de estado / mensajes -->
+        <Border Grid.Row="2" Background="#1C1F2B" CornerRadius="6" Padding="12,8" Margin="0,14,0,0" BorderBrush="#2E3346" BorderThickness="1">
+            <TextBlock x:Name="LblMensaje" Text="Listo. Selecciona un registro de la lista para editarlo o ingresa uno nuevo."
+                       Foreground="#8B949E" FontSize="12"/>
+        </Border>
+    </Grid>
+</Window>
