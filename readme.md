@@ -3,28 +3,28 @@
 ## 6.1. Información general
 - **Nombre del proyecto:** UCM Tracker (Gestor Cronológico Marvel)
 - **Estudiante:** Saray Natalia Duarte Florez
-- **Modalidad:** Virtual
-- **Asignatura:** Programacion en C# con .NET (Parcial Final)
-- **Institucion:** Corporación Universitaria Americana
-- **Descripción del software:** Aplicación de escritorio desarrollada en C# (.NET 8) con interfaz grafica en Avalonia UI 11 y almacenamiento persistente local mediante ADO.NET y SQLite. Permite administrar un catalogo personalizado de peliculas, series y especiales del Universo Cinematográfico de Marvel (UCM) organizados por su orden cronologico.
-- **Problema o necesidad que resuelve:** Facilita llevar un control estructurado y persistente del orden cronologico de visualizacion de las producciones de Marvel, evitando perder el seguimiento de capitulos o peliculas vistas, pendientes y sus respectivas calificaciones.
-- **Objetivo principal de la aplicacion:** Implementar un sistema CRUD completo (Crear, Consultar, Actualizar y Eliminar) integrando Programacion Orientada a Objetos (POO), interfaz grafica XAML en Avalonia UI y consultas SQL parametrizadas con ADO.NET sobre SQLite.
+- **Modalidad:** Individual
+- **Asignatura:** Programación en C# con .NET (Parcial Final — Semana 13)
+- **Institución:** Corporación Universitaria Americana
+- **Descripción del software:** Desarrollé una aplicación de escritorio en C# (.NET 8) con interfaz gráfica en Avalonia UI 11 y almacenamiento persistente local mediante ADO.NET y SQLite. El sistema me permite administrar un catálogo personalizado de películas, series y especiales del Universo Cinematográfico de Marvel (UCM) organizados según su orden cronológico.
+- **Problema o necesidad que resuelve:** Como seguidora de las producciones de Marvel, necesitaba una herramienta local que me permitiera llevar un control ordenado y persistente de la línea temporal del UCM, registrando qué películas o series ya vi, cuáles tengo pendientes y qué calificación le asigno a cada una sin depender de listas externas.
+- **Objetivo principal de la aplicación:** Implementar un sistema CRUD completo (Crear, Consultar, Actualizar y Eliminar) integrando Programación Orientada a Objetos (POO), interfaz gráfica XAML en Avalonia UI y consultas SQL parametrizadas con ADO.NET sobre SQLite.
 
 ---
 
 ## 6.2. Funcionalidades
-- **Registro (Create):** Permite agregar nuevas producciones Marvel indicando título, tipo (Película, Serie o Especial), número en el orden cronológico, estado de visualización (Vista, En progreso o Pendiente) y calificación de 0.0 a 10.0.
-- **Consulta (Read):** Lista automáticamente todos los registros almacenados en SQLite ordenados de forma ascendente por su número cronológico (`ORDER BY OrdenCronologico ASC`).
-- **Actualización (Update):** Al seleccionar cualquier fila del catálogo, carga sus datos en el formulario para modificar su estado, nota o título y actualizar el registro en la base de datos.
-- **Eliminación (Delete):** Permite eliminar permanentemente un registro seleccionado de la base de datos SQLite.
-- **Validaciones de entrada:** Verifica que el título no esté vacío, que el orden cronológico sea un entero positivo mayor a 0 y que la calificación esté dentro del rango válido (`0.0` a `10.0`), informando cualquier error al usuario en pantalla.
+- **Registro (Create):** Implementé un formulario que permite agregar nuevas producciones Marvel indicando título, tipo (Película, Serie o Especial), número en el orden cronológico, estado de visualización (Vista, En progreso o Pendiente) y calificación de 0.0 a 10.0.
+- **Consulta (Read):** Configuré la vista principal para listar automáticamente todos los registros almacenados en SQLite ordenados de forma ascendente por su número cronológico (`ORDER BY OrdenCronologico ASC`).
+- **Actualización (Update):** Al seleccionar cualquier fila del catálogo, la aplicación carga sus datos en el formulario para que pueda modificar su estado, nota o título y actualizar el registro directamente en la base de datos.
+- **Eliminación (Delete):** Agregué la opción de eliminar permanentemente un registro seleccionado de la base de datos SQLite y refrescar el listado al instante.
+- **Validaciones de entrada:** Programé validaciones antes de guardar o actualizar para verificar que el título no esté vacío, que el orden cronológico sea un entero positivo mayor a 0 y que la calificación esté dentro del rango válido (`0.0` a `10.0`), mostrando mensajes claros en pantalla.
 
 ---
 
 ## 6.3. Tecnologías utilizadas
 - **Versión de .NET:** .NET 8.0 SDK
-- **Lenguaje de programacion:** C# 12
-- **Interfaz grafica:** Avalonia UI 11 (`.axaml`)
+- **Lenguaje de programación:** C# 12
+- **Interfaz gráfica:** Avalonia UI 11 (`.axaml`)
 - **Acceso a datos:** ADO.NET (`Microsoft.Data.Sqlite` versión `8.0.11`)
 - **Motor de base de datos:** SQLite 3 (archivo local `ucm_tracker.db`)
 - **Entorno de desarrollo:** Visual Studio Code y Git / GitHub
@@ -42,29 +42,29 @@ UcmTrackerApp/
 ├── evidencias/
 │   ├── registro.png             # Captura de prueba 1: Registro
 │   ├── consulta.png             # Captura de prueba 2: Consulta
-│   ├── actualizacion.png        # Captura de prueba 3: Actualizacion
-│   ├── eliminacion.png          # Captura de prueba 4: Eliminacion
-│   ├── validacion.png           # Captura de prueba 5: Validacion
+│   ├── actualizacion.png        # Captura de prueba 3: Actualización
+│   ├── eliminacion.png          # Captura de prueba 4: Eliminación
+│   ├── validacion.png           # Captura de prueba 5: Validación
 │   └── persistencia.png         # Captura de prueba 6: Persistencia
 ├── App.axaml                    # Configuración global de estilos y temas de Avalonia
-├── App.axaml.cs                 # Ciclo de vida de la aplicacion Avalonia
+├── App.axaml.cs                 # Ciclo de vida de la aplicación Avalonia
 ├── MainWindow.axaml             # Diseño visual de la ventana principal en XAML
 ├── MainWindow.axaml.cs          # Controlador de eventos de UI, validaciones e integración
-├── Program.cs                   # Punto de entrada principal de la aplicacion
+├── Program.cs                   # Punto de entrada principal de la aplicación
 ├── UcmTrackerApp.csproj         # Archivo de proyecto .NET 8 y dependencias NuGet
 └── README.md                    # Documentación técnica del proyecto
 ```
 
 ### Clases principales y aplicación de POO
-1. **`ProduccionMarvel` (`Models/ProduccionMarvel.cs`):** Encapsula los atributos de cada produccion (`Id`, `Titulo`, `Tipo`, `OrdenCronologico`, `Estado`, `Calificacion`) mediante propiedades publicas y sobrecarga de constructores (constructor vacío y constructor parametrizado).
-2. **`MarvelRepository` (`Data/MarvelRepository.cs`):** Aplica el principio de responsabilidad única separando completamente la lógica SQL de la interfaz gráfica. Encapsula la cadena de conexion (`private readonly string _connectionString`) y expone métodos publicos para las operaciones `Agregar`, `ObtenerTodas`, `Actualizar` y `Eliminar`.
-3. **`MainWindow` (`MainWindow.axaml.cs`):** Gestiona la interaccion con el usuario, captura los eventos `Click` y `SelectionChanged`, valida los datos ingresados y delega las operaciones de persistencia a una instancia de `MarvelRepository`.
+1. **`ProduccionMarvel` (`Models/ProduccionMarvel.cs`):** Diseñé esta clase modelo para encapsular los atributos de cada producción (`Id`, `Titulo`, `Tipo`, `OrdenCronologico`, `Estado`, `Calificacion`) mediante propiedades públicas y sobrecarga de constructores (un constructor vacío y uno parametrizado).
+2. **`MarvelRepository` (`Data/MarvelRepository.cs`):** Apliqué el principio de responsabilidad única separando por completo la lógica SQL de la interfaz gráfica. Encapsulé la cadena de conexión (`private readonly string _connectionString`) y expuse métodos públicos para las operaciones `Agregar`, `ObtenerTodas`, `Actualizar` y `Eliminar`.
+3. **`MainWindow` (`MainWindow.axaml.cs`):** En esta clase gestiono la interacción con el usuario, capturo los eventos `Click` y `SelectionChanged`, ejecuto las validaciones de entrada y delego las operaciones de persistencia a mi instancia de `MarvelRepository`.
 
 ---
 
 ## 6.5. Instalación de dependencias
 1. Verificar que esté instalado el **SDK de .NET 8.0** ejecutando `dotnet --version`.
-2. Clonar este repositorio desde GitHub:
+2. Clonar mi repositorio desde GitHub:
    ```bash
    git clone [https://github.com/saryduarte/ucm-tracker-avalonia.git](https://github.com/saryduarte/ucm-tracker-avalonia.git)
    ```
@@ -76,12 +76,12 @@ UcmTrackerApp/
    ```bash
    dotnet restore
    ```
-*(No requiere configuración de servidores externos ni scripts SQL manuales, ya que la base de datos SQLite se genera automaticamente).*
+*(No requiere configuración de servidores externos ni scripts SQL manuales, ya que la aplicación genera la base de datos SQLite automáticamente al iniciar).*
 
 ---
 
 ## 6.6. Ejecución del programa
-1. Compilar el proyecto para verificar que no existan errores:
+1. Compilar el proyecto para comprobar que no existan errores:
    ```bash
    dotnet build
    ```
@@ -89,53 +89,53 @@ UcmTrackerApp/
    ```bash
    dotnet run
    ```
-Al iniciar, se abrirá la ventana principal **UCM Tracker — Gestor Cronologico Marvel** lista para registrar, consultar, editar o eliminar producciones.
+Al ejecutarse, se despliega la ventana principal **UCM Tracker — Gestor Cronológico Marvel** lista para registrar, consultar, actualizar o eliminar producciones.
 
 ---
 
 ## 6.7. Base de datos
-- **Informacion almacenada:** Registra producciones audiovisuales de Marvel en la tabla `ProduccionesMarvel` con las columnas:
-  - `Id` (`INTEGER PRIMARY KEY AUTOINCREMENT`): Identificador unico de cada registro.
-  - `Titulo` (`TEXT NOT NULL`): Nombre de la pelicula, serie o especial.
-  - `Tipo` (`TEXT NOT NULL`): Clasificacion del formato (`Película`, `Serie`, `Especial`).
-  - `OrdenCronologico` (`INTEGER NOT NULL`): Posicion dentro de la linea temporal del UCM.
-  - `Estado` (`TEXT NOT NULL`): Seguimiento del usuario (`Vista`, `En progreso`, `Pendiente`).
-  - `Calificacion` (`REAL NOT NULL`): Puntuacion numerica asignada por el usuario (`0.0` a `10.0`).
-- **Conexion con SQLite:** Se establece mediante `SqliteConnection` usando la cadena `"Data Source=ucm_tracker.db"` dentro de bloques `using` para garantizar el cierre de la conexion y liberacion de memoria tras cada operacion.
-- **Operaciones CRUD:** Se ejecutan mediante `SqliteCommand` utilizando parámetros (`@Titulo`, `@Tipo`, `@OrdenCronologico`, `@Estado`, `@Calificacion`, `@Id`) para prevenir inyección SQL, empleando `ExecuteNonQuery()` para inserciones/actualizaciones/eliminaciones y `SqliteDataReader` (`ExecuteReader()`) para la lectura de registros.
-- **Creacion automatica:** Al instanciar `MarvelRepository`, el metodo privado `InicializarBaseDeDatos()` crea el archivo `ucm_tracker.db` y ejecuta `CREATE TABLE IF NOT EXISTS ProduccionesMarvel (...)` automaticamente si aun no existen.
+- **Información almacenada:** La aplicación guarda los registros en la tabla `ProduccionesMarvel` con las siguientes columnas:
+  - `Id` (`INTEGER PRIMARY KEY AUTOINCREMENT`): Identificador único autoincremental de cada registro.
+  - `Titulo` (`TEXT NOT NULL`): Nombre de la película, serie o especial.
+  - `Tipo` (`TEXT NOT NULL`): Clasificación del formato (`Película`, `Serie`, `Especial`).
+  - `OrdenCronologico` (`INTEGER NOT NULL`): Posición dentro de la línea temporal del UCM.
+  - `Estado` (`TEXT NOT NULL`): Seguimiento de visualización (`Vista`, `En progreso`, `Pendiente`).
+  - `Calificacion` (`REAL NOT NULL`): Puntuación numérica asignada (`0.0` a `10.0`).
+- **Conexión con SQLite:** La establezco mediante `SqliteConnection` usando la cadena `"Data Source=ucm_tracker.db"` dentro de bloques `using` para asegurar el cierre de la conexión y liberación de recursos después de cada operación.
+- **Operaciones CRUD:** Las ejecuto mediante `SqliteCommand` empleando consultas parametrizadas (`@Titulo`, `@Tipo`, `@OrdenCronologico`, `@Estado`, `@Calificacion`, `@Id`) para evitar inyección SQL, usando `ExecuteNonQuery()` para inserciones, actualizaciones y eliminaciones, y `SqliteDataReader` (`ExecuteReader()`) para la consulta de registros.
+- **Creación automática:** Al instanciar `MarvelRepository`, el método privado `InicializarBaseDeDatos()` crea automáticamente el archivo `ucm_tracker.db` y ejecuta `CREATE TABLE IF NOT EXISTS ProduccionesMarvel (...)` si la tabla aún no existe.
 
 ---
 
 ## 6.8. Evidencias de funcionamiento
 
 ### 1. Prueba de Registro (Create)
-Se ingresó la película *Capitan America: El primer vengador* (Orden #1, Vista, Nota 8.8) y se presiono **Guardar**. El sistema confirmo la inserción en SQLite y la mostró en la tabla.
+Ingresé la película *Capitán América: El primer vengador* (Orden #1, Vista, Nota 8.8) y presioné **Guardar**. El sistema confirmó la inserción en SQLite y la mostró en la tabla.
 ![Prueba de registro](evidencias/registro.png)
 
 ### 2. Prueba de Consulta (Read)
-Se registraron multiples producciones (*Capitán América*, *Iron Man* y *Vision Quest*) y la aplicación consultó la base de datos mostrándolas ordenadas automaticamente por su número cronológico (`#1`, `#3`, `#38`).
+Registré varias producciones (*Capitán América*, *Iron Man* y *Vision Quest*) y comprobé que la aplicación consulta la base de datos y las ordena automáticamente por su número cronológico (`#1`, `#3`, `#38`).
 ![Prueba de consulta](evidencias/consulta.png)
 
 ### 3. Prueba de Actualización (Update)
-Se selecciono el registro ID #4 (*Vision Quest*), se modifico su estado de `Pendiente` a `Vista` y se presionó **Actualizar**, reflejando el cambio inmediatamente en la interfaz y en SQLite.
+Seleccioné el registro ID #4 (*Vision Quest*), cambié su estado de `Pendiente` a `Vista` y presioné **Actualizar**, reflejando el cambio de inmediato en la tabla y en SQLite.
 ![Prueba de actualización](evidencias/actualizacion.png)
 
 ### 4. Prueba de Eliminación (Delete)
-Se selecciono el registro *Capitán América: El primer vengador* de la lista y se presionó **Eliminar**, removiéndolo de la base de datos y actualizando el listado.
-![Prueba de eliminacion](evidencias/eliminacion.png)
+Seleccioné el registro *Capitán América: El primer vengador* de la lista y presioné **Eliminar**, verificando que se removiera de la base de datos y desapareciera del catálogo.
+![Prueba de eliminación](evidencias/eliminacion.png)
 
 ### 5. Prueba de Validación de datos
-Se intento guardar un registro dejando el campo **Título** vacio y con un valor invalido (`-5`) en el orden cronologico; la aplicacion bloqueo el guardado y mostró el mensaje de error en rojo en la barra inferior.
-![Prueba de validacion](evidencias/validacion.png)
+Intenté guardar un registro dejando el campo **Título** vacío y escribiendo un número inválido (`-5`) en el orden cronológico; la aplicación bloqueó el registro y mostró el mensaje de error en rojo en la barra inferior.
+![Prueba de validación](evidencias/validacion.png)
 
 ### 6. Prueba de Persistencia de datos
-Se cerro por completo la ventana de la aplicacion y se volvio a ejecutar mediante `dotnet run`, comprobando que los registros guardados previamente (*Iron Man* y *Vision Quest*) permanecen almacenados en `ucm_tracker.db`.
+Cerré por completo la ventana de la aplicación y volví a ejecutarla con `dotnet run`, comprobando que los registros guardados previamente (*Iron Man* y *Vision Quest*) seguían almacenados en `ucm_tracker.db`.
 ![Prueba de persistencia](evidencias/persistencia.png)
 
 ---
 
 ## 6.9. Problemas encontrados y soluciones
-1. **Incompatibilidad de versión del SDK de .NET al crear la plantilla:** Al ejecutar `dotnet new avalonia.app`, la plantilla genero el proyecto apuntando a `net9.0`, mientras que el entorno local contaba con `.NET 8.0 SDK`, produciendo el error `NETSDK1045`. **Solucion:** Se modificó `<TargetFramework>net8.0</TargetFramework>` en `UcmTrackerApp.csproj`, permitiendo restaurar `Microsoft.Data.Sqlite` 8.0.11 y compilar sin errores.
-2. **Contraste de texto en controles de entrada con tema oscuro:** Inicialmente, al enfocar o pasar el cursor sobre los `TextBox`, el tema claro predeterminado cambiaba el fondo a blanco manteniendo la fuente blanca. **Solucion:** Se configuró `RequestedThemeVariant="Dark"` en `MainWindow.axaml` junto con estilos explícitos (`Window.Styles`) para los estados `:pointerover` y `:focus` de `TextBox` y `ComboBox`.
-3. **Separador decimal en calificaciones:** Dependiendo de la configuracion regional del sistema operativo, el usuario podía ingresar calificaciones con punto (`9.5`) o coma (`9,5`). **Solución:** Se normalizo la cadena reemplazando `,` por `.` y se valido con `double.TryParse` usando `CultureInfo.InvariantCulture`.
+1. **Incompatibilidad de versión del SDK de .NET al crear la plantilla:** Cuando ejecuté `dotnet new avalonia.app`, la plantilla creó el proyecto apuntando a `net9.0`, mientras que en mi equipo tengo instalado `.NET 8.0 SDK`, lo que generó el error `NETSDK1045`. **Solución:** Cambié `<TargetFramework>net8.0</TargetFramework>` dentro de `UcmTrackerApp.csproj`, logrando restaurar `Microsoft.Data.Sqlite` 8.0.11 y compilar correctamente.
+2. **Contraste de texto en los controles de entrada con tema oscuro:** Al principio, cuando escribía o pasaba el cursor sobre los `TextBox`, el tema claro por defecto cambiaba el fondo a blanco manteniendo la letra blanca. **Solución:** Agregué `RequestedThemeVariant="Dark"` en `MainWindow.axaml` y definí estilos explícitos (`Window.Styles`) para los estados `:pointerover` y `:focus` de `TextBox` y `ComboBox`.
+3. **Separador decimal en las calificaciones:** Según la configuración regional de Windows, podía ingresar calificaciones con punto (`9.5`) o con coma (`9,5`). **Solución:** Normalicé el texto reemplazando `,` por `.` antes de convertirlo con `double.TryParse` usando `CultureInfo.InvariantCulture`.
